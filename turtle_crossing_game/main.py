@@ -5,6 +5,8 @@ from player import Player
 from car_manager import CarManager
 from scoreboard import Scoreboard
 
+SPEED = 0.1
+
 screen = Screen()
 screen.setup(width=600, height=600)
 screen.tracer(0)
@@ -24,8 +26,8 @@ def auto_gen_car():
 schedule.every(2).seconds.do(auto_gen_car)
 game_is_on = True
 while game_is_on:
+    time.sleep(SPEED)
     screen.update()
-    time.sleep(0.1)
     schedule.run_pending()
 
     for i in range(len(cars)):
@@ -36,6 +38,8 @@ while game_is_on:
 
     if turtle.win():
         board.upgrade()
+        if SPEED > 0:
+            SPEED -= 0.01
 
 
 screen.exitonclick()
