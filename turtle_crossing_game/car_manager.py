@@ -21,10 +21,5 @@ class CarManager(Turtle):
         new_x = self.xcor() - STARTING_MOVE_DISTANCE
         self.goto(new_x, self.ycor())
 
-    
-    def car_generate(self):
-        schedule.every(10).seconds.do(CarManager)
-        schedule.run_pending()
-
 
 
