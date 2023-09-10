@@ -10,11 +10,11 @@ class Scoreboard(Turtle):
         self.curr_score = 0
         self.penup()
         self.hideturtle()
+        self.goto(-260, 260)
         self.score()
 
     
     def score(self):
-        self.goto(-260, 260)
         self.clear()
         self.write(f"Score: {self.curr_score}", move=False, align="left", font=FONT)
 
