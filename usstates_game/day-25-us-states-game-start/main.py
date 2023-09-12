@@ -1,5 +1,6 @@
 import turtle
 import os
+import csv
 import pandas as pd
 from point import Point
 
@@ -12,19 +13,9 @@ screen.addshape(img)
 
 turtle.shape(img)
 
-# def format_name(text):
-#     lst = text.split(" ")
-#     new_lst = []
-#     for word in lst:
-#         word = word[0].upper() + word[1:].lower()
-#         new_lst.append(word)
-#     return " ".join(new_lst)
-
-
 df = pd.read_csv(f"{current_working_directory}{path_to_files}/50_states.csv")
 list_of_states = df["state"].to_list()
 correct_guesses = []
-# print(list_of_states)
 while len(correct_guesses) < 50:
     if len(correct_guesses) == 0:
         title = "Guess the States"
@@ -32,7 +23,8 @@ while len(correct_guesses) < 50:
         title = f"{len(correct_guesses)}/50 States Guessed."
     answer_state = screen.textinput(title=title, prompt="What's another state's name? ")
     formated_answer_state = answer_state.title() # Format answer
-
+    if formated_answer_state == "Exit":
+        break
     if formated_answer_state in list_of_states:
         correct_guesses.append(formated_answer_state)
         x_cor = float(df[df["state"] == formated_answer_state]["x"])
@@ -40,7 +32,12 @@ while len(correct_guesses) < 50:
         pointy = Point()
         pointy.name_the_state(x_cor, y_cor, formated_answer_state)
 
-## TODO: Review folder/file path
-## TODO: Reorganize code
 
-turtle.mainloop()
+missing_states = []
+for item in list_of_states:
+    if item not in correct_guesses:
+        missing_states.append(item)
+
+df = pd.DataFrame(missing_states)
+df.to_csv("states_to_learn.csv")
+
