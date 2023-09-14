@@ -1,6 +1,5 @@
 import turtle
 import os
-import csv
 import pandas as pd
 from point import Point
 
@@ -33,11 +32,7 @@ while len(correct_guesses) < 50:
         pointy.name_the_state(x_cor, y_cor, formated_answer_state)
 
 
-missing_states = []
-for item in list_of_states:
-    if item not in correct_guesses:
-        missing_states.append(item)
-
+missing_states = [item for item in list_of_states if item not in correct_guesses]
 df = pd.DataFrame(missing_states)
 df.to_csv("states_to_learn.csv")
 
