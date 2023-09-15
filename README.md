@@ -3,3 +3,5 @@
 - Pong game (Still functions to do)
 - Turtle crossing game
 - Guess the US States name
+- My very first GUI - Mile to Km Converter
+- Pomodoro clock
