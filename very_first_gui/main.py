@@ -42,17 +42,4 @@ button = Button(text="Calculate", command=convert_function)
 button.grid(row=3, column=2)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 window.mainloop()
