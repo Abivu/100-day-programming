@@ -1,5 +1,12 @@
 from tkinter import *
 from tkinter import messagebox
+from password_generator import password_generator
+# ---------------------------- PASSWORD GENERATOR ------------------------------- #
+def password_auto():
+    password = password_generator()
+    pw_input.insert(0, password)
+
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_data():
     # Take all values from entries
@@ -22,6 +29,7 @@ def delete():
     web_input.delete(0, END)
     # email_user_input.delete(0, END)
     pw_input.delete(0, END)
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -58,12 +66,11 @@ pw_input = Entry(width=32)
 pw_input.grid(column=2, row=4)
 
 #Button
-generate_pw = Button(text="Generate Password")
+generate_pw = Button(text="Generate Password", command=password_auto)
 generate_pw.grid(column=3, row=4)
 
 add = Button(text="Add", width=45, command=save_data)
 add.grid(column=2, row=5, columnspan=2)
 
-# ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 window.mainloop()
