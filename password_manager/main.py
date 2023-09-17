@@ -41,7 +41,7 @@ def save_data():
     if len(web_data) == 0 or len(email_user_data) == 0 or len(pw_data) == 0:
         messagebox.showwarning("Missing field(s)", message="All fields must be required!")
     else:
-        is_ok = messagebox.askokcancel("Information Confirm", message=f"Doublel check the info before OK:\nWebsite: {web_data}\nEmail/Username: {email_user_data}\nPassword: {pw_data}\nIs all the info correct?")
+        is_ok = messagebox.askokcancel("Information Confirm", message=f"Double check the info before OK:\nWebsite: {web_data}\nEmail/Username: {email_user_data}\nPassword: {pw_data}\nIs all the info correct?")
         
         if is_ok:
             try:
