@@ -3,6 +3,21 @@ from tkinter import messagebox
 from password_generator import password_generator
 import pyperclip
 import json
+# ---------------------------- SEARCH FUNCTION ------------------------------- #
+def find_password():
+    web_data = web_input.get()
+    try:
+        with open("data.json", "r") as file:
+            data = json.load(file)
+            email = data[web_data]["email"]
+            pword = data[web_data]["pass"]
+    except KeyError:
+        messagebox.showwarning("ERROR", message="No such website is found. Try again!")
+    except FileNotFoundError:
+        messagebox.showwarning("ERROR", message="No data file found")
+    else:    
+        messagebox.showinfo(f"Email/Password of {web_data}", message=f"Email: {email}\nPassword:{pword}")
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def password_auto():
     password = password_generator()
@@ -92,6 +107,9 @@ generate_pw.grid(column=3, row=4)
 
 add = Button(text="Add", width=45, command=save_data)
 add.grid(column=2, row=5, columnspan=2)
+
+search = Button(text="Search", width=45, command=find_password)
+search.grid(column=2, row=6, columnspan=2)
 
 
 window.mainloop()
