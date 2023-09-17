@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from password_generator import password_generator
 import pyperclip
+import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def password_auto():
     password = password_generator()
@@ -15,6 +16,12 @@ def save_data():
     web_data = web_input.get()
     email_user_data = email_user_input.get()
     pw_data = pw_input.get()
+    new_data = {
+        web_data: {
+            "email": email_user_data,
+            "pass": pw_data
+        }
+    }
     
     if len(web_data) == 0 or len(email_user_data) == 0 or len(pw_data) == 0:
         messagebox.showwarning("Missing field(s)", message="All fields must be required!")
@@ -22,9 +29,20 @@ def save_data():
         is_ok = messagebox.askokcancel("Information Confirm", message=f"Doublel check the info before OK:\nWebsite: {web_data}\nEmail/Username: {email_user_data}\nPassword: {pw_data}\nIs all the info correct?")
         
         if is_ok:
-            with open("data.txt", "a") as file:
-                content = f"{web_data} | {email_user_data} | {pw_data}\n"
-                file.write(content)
+            try:
+                with open("data.json", "r") as file:
+                    # Read the file
+                    data = json.load(file)
+                    # Add a new data into the file
+                    data.update(new_data)
+            except FileNotFoundError:
+                with open("data.json", "w") as file:
+                    # Created a new JSON file and write in.
+                    json.dump(new_data, file, indent=4)
+            else:
+                with open("data.json", "w") as file:
+                    # Save the updated date into the file
+                    json.dump(data, file, indent=4)
             delete()
 
 def delete():
