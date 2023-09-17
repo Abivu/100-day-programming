@@ -33,17 +33,18 @@ def save_data():
                 with open("data.json", "r") as file:
                     # Read the file
                     data = json.load(file)
-                    # Add a new data into the file
-                    data.update(new_data)
             except FileNotFoundError:
                 with open("data.json", "w") as file:
                     # Created a new JSON file and write in.
                     json.dump(new_data, file, indent=4)
             else:
                 with open("data.json", "w") as file:
+                    # Add a new data into the file
+                    data.update(new_data)
                     # Save the updated date into the file
                     json.dump(data, file, indent=4)
-            delete()
+            finally:
+                delete()
 
 def delete():
     web_input.delete(0, END)
