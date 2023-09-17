@@ -9,14 +9,16 @@ def find_password():
     try:
         with open("data.json", "r") as file:
             data = json.load(file)
-            email = data[web_data]["email"]
-            pword = data[web_data]["pass"]
-    except KeyError:
-        messagebox.showwarning("ERROR", message="No such website is found. Try again!")
     except FileNotFoundError:
         messagebox.showwarning("ERROR", message="No data file found")
-    else:    
-        messagebox.showinfo(f"Email/Password of {web_data}", message=f"Email: {email}\nPassword:{pword}")
+    else:
+        if web_data in data: 
+            email = data[web_data]["email"]
+            pword = data[web_data]["pass"]   
+            messagebox.showinfo(f"Email/Password of {web_data}", message=f"Email: {email}\nPassword:{pword}")
+        else:
+            messagebox.showwarning("ERROR", message="No such website is found. Try again!")
+
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def password_auto():
