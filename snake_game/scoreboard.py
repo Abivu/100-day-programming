@@ -4,8 +4,11 @@ class ScoreBoard(Turtle):
     def __init__(self): 
         super().__init__()
         self.curr_score = 0
-        with open("data.txt") as file:
-            self.high_score = int(file.read())
+        try:        
+            with open("data.txt") as file:
+                self.high_score = int(file.read())
+        except FileNotFoundError:
+            self.high_score = 0
         self.penup()
         self.hideturtle()
         self.color("white")
