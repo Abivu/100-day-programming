@@ -5,3 +5,5 @@
 - Guess the US States name
 - My very first GUI - Mile to Km Converter
 - Pomodoro clock
+- Flashcard app
+- Auto email to send birthday wishes

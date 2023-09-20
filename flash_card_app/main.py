@@ -34,7 +34,7 @@ def new_word(*button_id):
 
         list_of_words.remove(current_card)
         data = pd.DataFrame(list_of_words)
-        data.to_csv("data/words_to_learn.csv")
+        data.to_csv("data/words_to_learn.csv", index=False)
 
 
 def button_clicked(button_id):
