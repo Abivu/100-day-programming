@@ -15,8 +15,12 @@ parameters = {
     "formatted": 0, #Change to 24-hr format
 }
 
-while True:
-    time.sleep(10)
+def is_iss_close():
+    '''
+    The function to define whether iss is close to our current location - Winnipeg
+    +/- 5 degrees of the ISS actual position 
+    Output: return True/False
+    '''
     response = requests.get(url="http://api.open-notify.org/iss-now.json")
     response.raise_for_status()
     data = response.json()
@@ -24,8 +28,15 @@ while True:
     iss_latitude = float(data["iss_position"]["latitude"])
     iss_longitude = float(data["iss_position"]["longitude"])
 
-    #Your position is within +5 or -5 degrees of the ISS position.
+    if MY_LAT-5 <= iss_latitude <= MY_LAT+5 and MY_LONG-5 <= iss_longitude <= MY_LONG+5:
+        return True
+    
 
+def is_night_time():
+    '''
+    The function to define whether or not it is a night time
+    Output: return True/False
+    '''
     response = requests.get("https://api.sunrise-sunset.org/json", params=parameters)
     response.raise_for_status()
     data = response.json()
@@ -33,23 +44,24 @@ while True:
     sunset = int(data["results"]["sunset"].split("T")[1].split(":")[0])
 
     time_now = datetime.now()
+    if time_now.hour >= sunset or time_now.hour <= sunrise:
+        return True
+    
 
-    #If the ISS is close to my current position
-    if MY_LAT-5 <= iss_latitude <= MY_LAT+5 and MY_LONG-5 <= iss_longitude <= MY_LONG+5:
-        if time_now.hour >= sunset or time_now.hour <= sunrise:                # and it is currently dark
-            with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
-                connection.starttls()
-                connection.login(user=MY_EMAIL, password=MY_PASSWORD)
-                connection.sendmail(
-                    from_addr=MY_EMAIL,
-                    to_addrs=MY_EMAIL,
-                    msg=f"Subject: look up!\n\nLook Up. ISS is coming close."
-                )
-    else:
-        print("ISS is not close yet.")
-
+if is_iss_close() and is_night_time():
     # Then send me an email to tell me to look up.
-    # BONUS: run the code every 60 seconds.
+    with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+        connection.starttls()
+        connection.login(user=MY_EMAIL, password=MY_PASSWORD)
+        connection.sendmail(
+            from_addr=MY_EMAIL,
+            to_addrs=MY_EMAIL,
+            msg=f"Subject: look up!\n\nLook Up. ISS is coming close."
+        )
+else:
+    print("ISS is not close yet.")
+
+# BONUS: run the code every 60 seconds.
 
 
 
