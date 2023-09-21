@@ -47,19 +47,20 @@ def is_night_time():
     if time_now.hour >= sunset or time_now.hour <= sunrise:
         return True
     
-
-if is_iss_close() and is_night_time():
-    # Then send me an email to tell me to look up.
-    with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
-        connection.starttls()
-        connection.login(user=MY_EMAIL, password=MY_PASSWORD)
-        connection.sendmail(
-            from_addr=MY_EMAIL,
-            to_addrs=MY_EMAIL,
-            msg=f"Subject: look up!\n\nLook Up. ISS is coming close."
-        )
-else:
-    print("ISS is not close yet.")
+while True:
+    time.sleep(60)
+    if is_iss_close() and is_night_time():
+        # Then send me an email to tell me to look up.
+        with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+            connection.starttls()
+            connection.login(user=MY_EMAIL, password=MY_PASSWORD)
+            connection.sendmail(
+                from_addr=MY_EMAIL,
+                to_addrs=MY_EMAIL,
+                msg=f"Subject: look up!\n\nLook Up. ISS is coming close."
+            )
+    else:
+        print("ISS is not close yet.")
 
 # BONUS: run the code every 60 seconds.
 
