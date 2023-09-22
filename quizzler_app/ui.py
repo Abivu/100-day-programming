@@ -43,21 +43,13 @@ class QuizInterface:
             self.false_button.config(state="disabled")
 
 
-
-    
     def choose_true(self):
         is_right = self.quiz.check_answer("True")
-        # if is_right:
-        #     self.quiz.score += 1
-        #     self.score_label.config(text=f"Score: {self.quiz.score}")
         self.give_feedback(is_right)
 
     
     def choose_false(self):
         is_right = self.quiz.check_answer("False")
-        # if is_right:
-        #     self.quiz.score += 1
-        #     self.score_label.config(text=f"Score: {self.quiz.score}")
         self.give_feedback(is_right)
     
 
@@ -66,8 +58,6 @@ class QuizInterface:
             self.canvas.config(bg="green")
         else:
             self.canvas.config(bg="red")
-        self.window.after(1000, self.get_next_question)
-        # self.canvas.config(bg="white")
-        
+        self.window.after(1000, self.get_next_question)        
 
 
