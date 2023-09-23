@@ -4,7 +4,9 @@ from quiz_brain import QuizBrain
 THEME_COLOR = "#375362"
 
 class QuizInterface:
-    def __init__(self, quiz_brain: QuizBrain):
+    def __init__(self, quiz_brain: QuizBrain): # In this new class, an argument is passed and it could be an object from another class. 
+        ## By this way, this object would be able to use methods of its own class
+        ## & interact with this class
         self.quiz = quiz_brain
         self.window = Tk()
         self.window.title("Quizzler")
