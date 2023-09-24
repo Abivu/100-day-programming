@@ -29,7 +29,7 @@ day_before_close_price = float(data_last_2_days[last_2_days[1]]["4. close"])
 delta_close = ytd_close_price - day_before_close_price
 volume_of_change = round(abs(delta_close/ytd_close_price), 2)
 
-if volume_of_change < 0.05:
+if volume_of_change > 0.05:
     ## STEP 2: Use https://newsapi.org
     # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
     # Flaw: time of publish is not necessarily aligned with stock price time
