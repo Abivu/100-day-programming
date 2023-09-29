@@ -33,8 +33,10 @@ class FlightSearch:
             if flights_data[0]:
                 flight_price = flights_data[0]["price"]
                 link_to_book = flights_data[0]["deep_link"]
+                departure_time = flights_data[0]["local_departure"]
         except IndexError:
             self.search_for_flight()
 
         
-        return flight_price, link_to_book
+        return flight_price, departure_time, link_to_book
+    
