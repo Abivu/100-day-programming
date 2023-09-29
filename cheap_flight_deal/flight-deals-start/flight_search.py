@@ -1,8 +1,11 @@
 import requests
 import datetime as dt
 from dateutil.relativedelta import relativedelta
+from dotenv import load_dotenv
+from os import environ as env
 import json
 
+load_dotenv()
 search_flight_endpoint = "https://api.tequila.kiwi.com/v2/search"
 
 today = dt.datetime.now()
@@ -10,7 +13,7 @@ six_months_later = today + relativedelta(months=6)
 
 headers = {
     "Content-Type": "application/json",
-    "apikey": "HiMiQpOeZZWi2u7P_VIxUSiGvRb50RkJ"
+    "apikey": env["apikey"]
 }
 
 
@@ -22,8 +25,7 @@ class FlightSearch:
             "fly_to": fly_to, 
             "date_from": today.strftime("%d/%m/%Y"), #str - format: dd/mm/yyyy
             "date_to": six_months_later.strftime("%d/%m/%Y"),
-            "price_from": int(price - price*0.1), #int
-            "price_to": int(price + price*0.1), #int
+            "price_to": price #int
         }
 
         response = requests.get(url=search_flight_endpoint, headers=headers,params=parameters)
