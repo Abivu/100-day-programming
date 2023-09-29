@@ -1,5 +1,4 @@
 import requests
-import json
 
 search_code_endpoint = "https://api.tequila.kiwi.com/locations/query"
 
