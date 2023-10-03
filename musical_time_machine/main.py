@@ -11,6 +11,7 @@ load_dotenv()
 ## 1. Must follow the format
 ## 2. Must be in the past
 date_interest = input("Which date do you want to travel to? Type the date in this format YYYY-MM-DD: ")
+
 # Scrape the Billboard chart 100 of the given day
 URL = f"https://www.billboard.com/charts/hot-100/{date_interest}/"
 
