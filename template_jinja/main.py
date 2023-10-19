@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template("index.html", blogs= blog_posts)
+    return render_template("index.html", blogs=blog_posts)
 
 
 @app.route('/post/<int:index>')
